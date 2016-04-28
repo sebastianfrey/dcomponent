@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="../node_modules/dojo/resources/dojo.css" />    
+    <link rel="stylesheet" href="../node_modules/dijit/themes/claro/claro.css" />
+    <link rel="stylesheet" href="../src/resources/dcomponent.css" />    
+  </head>
+  <body class="claro">
+    <script src="./dojoConfig.js"></script>
+    <script src="../node_modules/dojo/dojo.js"></script>
+    <script>
+      require([
+        'dcomponent/Component',
+        'dcomponent/Factory',
+        'dojo/_base/declare',
+        'dstore/Memory',
+        'dstore/Trackable',
+        'dijit/form/Button',
+        'dijit/form/Textarea',
+        'dijit/form/TextBox',
+        'dijit/form/CheckBox',
+        './StoreData.js',
+        'dojo/domReady!'
+      ], function(Component, Factory, declare, Memory, Trackable, Button, Textarea, TextBox, CheckBox, StoreData) {
+        
+        var TrackableMemory = declare([Memory, Trackable]);
+        var data = StoreData.data.map(function(item) {
+          item.properties.onChange = function(value) {
+            console.log(item.label, value);
+          }
+          return item;
+        });
+        
+        store = new TrackableMemory({ data: data });
+        var factory = new Factory({
+          registry: {
+            textarea: Textarea,
+            textbox: TextBox,
+            checkbox: CheckBox,
+            numberspinner: 'dijit/form/NumberSpinner'
+          }
+        });
+
+        var textBoxComponent = new Component({
+          baseClass: 'simpleComponent',
+          store: store,
+          factory: factory
+        }, 'componentNode');
+        textBoxComponent.startup();
+      });
+    </script>
+    <div id="componentNode"></div>
+  </body>
+</html>

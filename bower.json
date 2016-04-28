@@ -1,0 +1,11 @@
+{
+  "name": "dcomponent",
+  "description": "A data driven component widget designed for automatic forms.",
+  "keywords": [
+    "dojo",
+    "component"
+  ],
+  "authors": [ "Sebastian Frey" ],
+  "dependencies": {
+  }
+}

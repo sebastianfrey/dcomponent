@@ -4,8 +4,8 @@ define([
   
   'dijit/_WidgetBase',
   
-  './mixins/_StoreMixin',
-  './mixins/_ComponentMixin'
+  './dijit/_StoreMixin',
+  './dijit/_ComponentMixin'
 ], function(declare, domConstruct, _WidgetBase, _StoreMixin, _ComponentMixin) {
   return declare('dcomponent.Component', [ _WidgetBase, _StoreMixin, _ComponentMixin]);
 });

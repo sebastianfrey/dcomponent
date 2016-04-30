@@ -5,7 +5,7 @@ define([
 ], function(declare, domConstruct) {
   
   return declare(null, {
-    scaffoldClass: 'simpleFormElement',
+    scaffoldClass: 'dcomponent',
     
     factory: null,
     

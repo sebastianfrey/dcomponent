@@ -43,12 +43,10 @@ define([
     }, 
     'request module byId'() {
       var expectedDeclaredClass = 'dijit.form.TextBox';
-      
-      console.log(factory.loaded);
-      
-      factory.byId('textbox').then((ModuleRef) => {
+      factory.loaded.then(() => {
+        var ModuleRef = factory.byId('textbox');
         var textbox = new ModuleRef();
-        asser.strictEqual(textbox.declaredClass, expectedDeclaredClass);
+        assert.strictEqual(textbox.declaredClass, expectedDeclaredClass);
       });
     },
     'check if module isRegisterd'() {
@@ -57,18 +55,20 @@ define([
         assert.equal(factory.isRegistered('textarea'), false);
       });
     },
-    'check if module can be created by createElement()'() {
+    'check if module can be created by create()'() {
       factory.loaded.then(() => {
         var node = document.createElement('div');
-        factory.createElement('textbox', { value: '1' }, node).then((object) => {
-          assert.equal(object.domNode, node);
-          assert.strictEqual(object.value, 1);
-        });
+        var object = factory.create('textbox', { value: '1' }, node);
+        assert.equal(object.domNode, node);
+        assert.strictEqual(object.value, 1);
       });
     },
-    'check if not registerd module can be created by createElement()'() {
-      factory.create('textarea').then(() => {}, (evt) => {
+    'check if not registerd module can be created by create()'() {
+      factory.on('error', (evt) => {
         expect(evt).to.have.property('error');
+      });
+      factory.loaded.then(() => {
+        factory.create('textarea');
       });
     }
   });

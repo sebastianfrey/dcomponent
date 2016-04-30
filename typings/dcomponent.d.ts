@@ -23,7 +23,7 @@ declare module dcomponent {
   }
 }
 
-declare module 'dcomponent/Factory' {
+declare module 'dcomponent/core/Factory' {
   class Factory<T> implements dcomponent.IFactory<T> {
     
     constructor(kwargs?: Factory.KwArgs)
@@ -42,8 +42,4 @@ declare module 'dcomponent/Factory' {
       registry: typeof Factory.prototype.registry;
     }
   }
-}
-
-declare module 'dcomponent/core/Factory' {
-  
 }

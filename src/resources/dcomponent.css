@@ -1,14 +1,14 @@
-.simpleFormElement {
+.dcomponent {
   display: flex;
 }
 
-.simpleFormElement .label {
+.dcomponent .label {
   flex: 1 ;
   margin: 0.75rem 0rem 0.25rem 1rem;
   max-width: 7rem;
 }
 
-.simpleFormElement .element {
+.dcomponent .element {
   flex: 1;
   margin: 0.5rem 1rem 0.5rem 0.5rem;
 }

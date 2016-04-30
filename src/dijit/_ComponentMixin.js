@@ -25,6 +25,9 @@ define([
       return this.factory.createElement(item, node);
     },
     
+    /**
+     * Overrideable
+     */
     _createScaffold: function(item, element) {
       var scaffoldNode = domConstruct.create('span', {
         'class': this.scaffoldClass
@@ -78,7 +81,7 @@ define([
     
     _setFactoryAttr: function(factory) {
       this._set('factory', factory);
-      this.factory.load().then(this._render.bind(this));
+      this.factory.loaded.then(this._render.bind(this));
     }
   });
   

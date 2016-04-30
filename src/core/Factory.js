@@ -13,19 +13,38 @@ define([
   }
 
   return declare('dcomponent.core.Factory', [Stateful, Evented], {
-
-    /**
-     * The dijits available for this factory.
-     */
-    registry: null,
     
     _loadDeferred: null,
 
     loaded: null,
     
-    constructor: function() {
-      this._loadDeferred = new Deferred();  
-      this.loaded = this._loadDeferred.promise;          
+    // Setters and Getters
+    
+    /**
+     * The registry setter.
+     * 
+     * @param registry
+     */
+    _registrySetter: function(registry) {
+      if(!registry) {
+        registry = lang.mixin({}, registry);
+      }
+      this._setLoaded(new Deferred());
+      this._load(registry);
+    },
+    
+    /**
+     * The private loaded setter.
+     *
+     * @param loadDeferred
+     */
+    _setLoaded: function(loadDeferred) {
+      if(!this.isLoaded() && this.loaded) {
+        this._loadDeferred.cancel('reloading');
+      }
+      
+      this._loadDeferred = loadDeferred;
+      this.loaded = this._loadDeferred.promise;
     },
     
     _load: function(registry) {
@@ -68,21 +87,13 @@ define([
      * @returns {dijit._WidgetBase|undefined}
      */
     byId: function(/*string*/ id) {
-      var deferred = new Deferred();
-      
-      this.loaded.then((function() {
-        var clazz = this._registry[id];
-        if(!clazz) {
-          var errMsg = 'dcomponent/Registry::byId() - Module id "' + id + '" was not found in registry.!';
-          var evt = { error: new Error(errMsg) };
-          deferred.reject(evt);
-          this.emit('error', evt);
-        } else {
-          deferred.resolve(clazz);          
-        }
-      }).bind(this));
-      
-      return deferred.promise;
+      var clazz = this._registry[id];
+      if(!clazz) {
+        var errMsg = 'dcomponent/Registry::byId() - Module id "' + id + '" was not found in registry.!';
+        var evt = { error: new Error(errMsg) };
+        this.emit('error', evt);
+      }
+      return clazz;
     },
 
     /**
@@ -153,23 +164,15 @@ define([
      */
 
     create: function(id, params, node) {
-      return this.byId(id).then(function(ModuleRef) {
-        params = lang.mixin({}, params);
-        if(node) {
-          return new ModuleRef(params, node);
-        }
-        return new ModuleRef(params);
-      }, function(evt) {
-        return evt;
-      });
-    },
-    
-    _registrySetter: function(registry) {
-      if(!registry) {
-        registry = lang.mixin({}, registry);
+      
+      var args = [ lang.mixin({}, params) ];
+      var ModuleRef = this.byId(id);
+      
+      if(node) {
+        args.push(node);
       }
-      this._registry = registry;
-      this._load(registry);
+      
+      return new (ModuleRef.apply(args));
     }
   });
 });

@@ -1,7 +1,7 @@
 {
   "name": "dcomponent",
   "author": "Sebastian Frey",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A data driven component widget with automatic form generation.",
   "license": "BSD-3-Clause",
   "repository": {

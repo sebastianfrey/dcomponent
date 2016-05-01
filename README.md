@@ -13,7 +13,7 @@ for automatic form generation. It depends on [dojo], [dijit] and [dstore].
 ## Install dcomponent
 
 ```
-npm install dojo-dcomponent
+npm install dcomponent
 ```
 
 ## Documentation for dcomponent

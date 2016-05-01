@@ -91,7 +91,6 @@ define([
      */
     byId: function(/*string*/ id) {
       var clazz = this._registry[id];
-      var keys = Object.keys(this._registry);
       if(!clazz) {
         var errMsg = 'dcomponent/Registry::byId() - Module id "' + id + '" was not found in registry.!';
         var evt = { error: new Error(errMsg) };
@@ -173,7 +172,7 @@ define([
       if(node) {
         args.push(node);
       }
-      return ModuleRef.apply(null, args)
+      return ModuleRef.apply(null, args);
     }
   });
 });

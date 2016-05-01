@@ -16,7 +16,7 @@ Argument | Type | Description
 
 Create a new Factory:
 
-```
+```javascript
   var factory = new Factory({
     registry: {
       textbox: 'dijit/form/TextBox'
@@ -34,11 +34,11 @@ Property | Type | Description
 -------- | ---- | -----------
 `loaded` | `dojo/promise/Promise<String[]>` | This property is a `dojo/promise/Promise`, which will be resolved when all `registry` entries will be loaded successfully.
 
-#### Examples:
+### Examples:
 
 Do something when the factory was loaded succesfully:
 
-```
+```javascript
   factory.loaded.then((loadedIds) => {
     // do your amazing stuff.
   });
@@ -55,74 +55,85 @@ Method | Returns | Description
 `byId(id)` | `dojo/promise/Promise<ClassConstructor>` | Requests a Module from the registry.
 `create(id, [arguments], [node])` | `dojo/promise/Promise<ClassInstance>` | Creates an class instance related to the given id. Optional parameters are element specific arguments and a node, which will be assigned to the class constructor to be created.
 
-#### Examples:
+### Examples:
 
-Registers a class in the factories registry by its module id - `register(id, moduleId)`:
+####*register(id, moduleId | classReference)*
 
-```
-  factory.register('checkbox', 'dijit/form/RadioButton')
-    .then((registeredId) => {});
+You can register a class reference in the factory by passing an id and the class reference.
+
+```javascript
+  factory.register('radiobutton', RadioButton)
+    .then((registeredId) => {
+      // registeredId will be 'radiobutton'
+      let radioBtn = factory.create(registeredId);
+    });
   
 ```
 
-Registers a class in the factories registry by the class reference - `register(id, classReference)`:
+It's also possible to register a class by its module id.
 
-```
-  factory.register('checkbox', RadioButton)
-    .then((registeredId) => {});
+```javascript
+  factory.register('radiobutton', 'dijit/form/RadioButton')
+    .then((registeredId) => {
+      let radioBtn = factory.create(registeredId);
+    });
 ```
 
-Deregisters a class from the factories registry by its id - `deregister(id)`:
+####*deregister(id)*
 
-```
+Deregisters a class from the factories registry by its id.
+
+```javascript
   factory.deregister('checkbox')
-    .then((deregisteredId) => {});
-  
-```
-
-Get a class reference by its registry id - `byId(id)`:
-
-```
-  factory.byId('textbox')
-    .then((ClassRef) => {
-      let myClass = new ClassRef();
+    .then((deregisteredId) => {
+      // do some stuff
     });
   
 ```
+####*byId(id)*
 
-Create an element without any arguments or a node - `create(id)`:
+Get a class reference by its id.
 
-```
-  factory.create('textbox')
-    .then((myClass) => {
-      myClass.set('value', 3);
-    });
+```javascript
+  let TextBoxRef = factory.byId('textbox');
   
+  let textbox = new TextBoxRef();
 ```
 
-Create an element with some arguments, but without a node - `create(id, params)`:
+####*create(id, [params], [node])*
 
+
+This will create an element without passing any arguments or a node.
+
+```javascript
+  let myTextbox = factory.create('textbox');
+   
+  let value = myTextbox.get('value'); 
 ```
-  factory.create('textbox', { 
+
+This will create an element and pass the arguments to its constructor.
+
+```javascript
+  let myTextbox = factory.create('textbox', { 
     value: 3,
     label: 'My lable'
-  }).then((myClass) => {
-      myClass.get('value');
-    });
-  
+  });
+    
+  let value = myTextbox.get('value');
 ```
 
-Create an element with some arguments and a node - `create(id, params, node)`:
+This will create an element and pass the arguments and the node to its constructor.
 
-```
+```javascript
   let node = document.createElement('div');
   
-  factory.create('textbox', { 
+  let myTextbox = factory.create('textbox', { 
     value: 3,
     label: 'My lable'
-  }, node).then((myClass) => {
-      myClass.get('value');
-    });
+  }, node);
+  
+  let value = myTextbox.get('value');
+  
   
 ```
 

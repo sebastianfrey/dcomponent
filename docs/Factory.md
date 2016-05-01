@@ -2,6 +2,8 @@
 
 A `Factory` provides an easy to use interface for creating dijits. Usually a factory plays off
 its strengths when used for automatic generation of forms. This class inherits from `dojo/Stateful` and `dojo/Evented`.
+The `Factory` is the actual heart of the `dcomponent/Component` implementation. It handles the automatic data driven
+generation of dijit's. 
 
 
 # Factory API
@@ -10,7 +12,7 @@ its strengths when used for automatic generation of forms. This class inherits f
 
 Argument | Type | Description
 -------- | ---- | -----------
-`registry` | `Object` | This argument is a simple key value object, whereby a key specifies an id through that a related value is accessible. A value can be a valid amd module id or a class reference. If a value is an module id, the factory tries to require it.
+`registry` | `Object` | This argument is a simple key value object, whereby a key specifies an id through that a related value is accessible. A value can be either a valid amd module id or a class reference. If a value is an module id, the factory tries to require it.
 
 #### Examples:
 
@@ -21,7 +23,7 @@ Create a new Factory:
     registry: {
       textbox: 'dijit/form/TextBox'
       checkbox: CheckBox,
-      mywidget: 'myapp/form/MyWidget
+      mywidget: 'myapp/form/MyWidget'
     }
   });
 

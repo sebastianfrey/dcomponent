@@ -10,7 +10,7 @@
     <script>
       require([
         'dcomponent/Component',
-        'dcomponent/Factory',
+        'dcomponent/core/Factory',
         'dojo/_base/declare',
         'dstore/Memory',
         'dstore/Trackable',
@@ -23,12 +23,16 @@
       ], function(Component, Factory, declare, Memory, Trackable, Button, Textarea, TextBox, CheckBox, StoreData) {
         
         var TrackableMemory = declare([Memory, Trackable]);
+        var count = 0;
         var data = StoreData.data.map(function(item) {
+          item.id = count++;
           item.properties.onChange = function(value) {
             console.log(item.label, value);
           }
           return item;
         });
+        
+        console.log(data);
         
         store = new TrackableMemory({ data: data });
         var factory = new Factory({

@@ -1,19 +1,19 @@
 define({
   "data": [
     {
-      "id": "textbox",
+      "type": "textbox",
       "label": "Textbox1",
       "properties": {
         "value": "wert1"
       }
     }, {
-      "id": "textbox",
+      "type": "textbox",
       "label": "Textbox2",
       "properties": {
         "value": "wert2"
       }
     }, {
-      "id": "numberspinner",
+      "type": "numberspinner",
       "label": "Numberspinner",
       "properties": {
         "value": 1000,
@@ -21,7 +21,7 @@ define({
         "constraints": { "min":9, "max":1550, "places":0 }
       }
     }, {
-      "id": "checkbox",
+      "type": "checkbox",
       "label": "Numberspinner",
       "properties": {
         "checked": true

@@ -7,11 +7,15 @@ define([
   return declare(null, {
     scaffoldClass: 'dcomponent',
     
+    typeProperty: 'type',
+    
+    propsProperty: 'properties',
+    
     factory: null,
     
     _renderItem: function(item) {
-      if(!item.properties) {
-        item.properties = {};
+      if(!item[this.propsProperty]) {
+        item[this.propsProperty] = {};
       }
 
       item = this._mountOnChangeEvent(item);
@@ -22,7 +26,7 @@ define([
     
     _createElement: function(item) {
       var node = domConstruct.create('span', null, this.containerNode);
-      return this.factory.createElement(item, node);
+      return this.factory.create(item[this.typeProperty], item[this.propsProperty], node);
     },
     
     /**
@@ -48,14 +52,13 @@ define([
     },
     
     _mountOnChangeEvent: function(item) {
-      var onChange = item.properties.onChange;
-      item.properties.onChange = this._onChange.bind(this, item, onChange);
-      console.log(item);
+      var onChange = item[this.propsProperty].onChange;
+      item[this.propsProperty].onChange = this._onChange.bind(this, item, onChange);
       return item;
     },
     
     _onChange: function(item, callback, value) {
-       var props = item.properties;
+       var props = item[this.propsProperty];
 
        if(props.hasOwnProperty('checked')) {
          props.checked = value;

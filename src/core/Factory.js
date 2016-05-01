@@ -47,6 +47,9 @@ define([
       this.loaded = this._loadDeferred.promise;
     },
     
+    /**
+     * Load the registy.
+     */
     _load: function(registry) {
       var promiseList = [];
       
@@ -88,6 +91,7 @@ define([
      */
     byId: function(/*string*/ id) {
       var clazz = this._registry[id];
+      var keys = Object.keys(this._registry);
       if(!clazz) {
         var errMsg = 'dcomponent/Registry::byId() - Module id "' + id + '" was not found in registry.!';
         var evt = { error: new Error(errMsg) };
@@ -158,21 +162,18 @@ define([
      * This method creates a widget.
      * 
      * @param {String} id - The id of the widget to be generated.
-     * @param {Object} params - The params for the widget to be generated.
+     * @param {Object} props - The params for the widget to be generated.
      * @param {HTMLElement} node - The node where the widget will be placed.
      * @returns {dijit._WidgetBase}
      */
 
-    create: function(id, params, node) {
-      
-      var args = [ lang.mixin({}, params) ];
+    create: function(id, props, node) {
       var ModuleRef = this.byId(id);
-      
+      var args = [ lang.mixin({}, props) ];
       if(node) {
         args.push(node);
       }
-      
-      return new (ModuleRef.apply(args));
+      return ModuleRef.apply(null, args)
     }
   });
 });

@@ -12,10 +12,10 @@ module.exports = function (grunt) {
   grunt.initConfig({
     name: packageJson.name,
     version: packageJson.version,
-    demoDir: 'demos/lib/dcomponent',
+    buildDir: '_buildTest',
     clean: {
       dev: {
-        src: ['<%= demoDir %>']
+        src: ['<%= buildDir %>']
       }
     },
     copy: {
@@ -25,7 +25,7 @@ module.exports = function (grunt) {
             cwd: 'src/',
             expand: true,
             src: ['**'],
-            dest: '<%= demoDir %>'
+            dest: '<%= buildDir %>'
           }
         ]
       }
@@ -42,7 +42,7 @@ module.exports = function (grunt) {
     },
     watch: {
 			dev: {
-        files: ['./src/**/*.js'],
+        files: ['./src/**/*.js', 'Gruntfile.js'],
         tasks: ['dev']
 			}
     }

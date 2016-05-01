@@ -5,7 +5,7 @@ define([
   'dijit/_WidgetBase',
   
   './dijit/_StoreMixin',
-  './dijit/_ComponentMixin'
-], function(declare, domConstruct, _WidgetBase, _StoreMixin, _ComponentMixin) {
-  return declare('dcomponent.Component', [ _WidgetBase, _StoreMixin, _ComponentMixin]);
+  './dijit/_FactoryMixin'
+], function(declare, domConstruct, _WidgetBase, _StoreMixin, _FactoryMixin) {
+  return declare('dcomponent.Component', [ _WidgetBase, _StoreMixin, _FactoryMixin]);
 });

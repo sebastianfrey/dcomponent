@@ -5,7 +5,7 @@ define([
 ], function(declare, domConstruct) {
   
   return declare(null, {
-    scaffoldClass: 'dcomponent',
+    scaffoldClass: 'scaffold',
     
     typeProperty: 'type',
     
@@ -39,8 +39,9 @@ define([
         'class': this.scaffoldClass
       });
       
-      domConstruct.create('span', {
+      domConstruct.create('label', {
         innerHTML: item[this.labelProperty],
+        'for': widget.id,
         'class': 'label'
       }, scaffoldNode);
       

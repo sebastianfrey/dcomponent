@@ -1,7 +1,7 @@
 {
   "name": "dcomponent",
   "author": "Sebastian Frey",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A data driven component widget with automatic form generation.",
   "license": "BSD-3-Clause",
   "repository": {
@@ -12,6 +12,10 @@
     "demos": "lite-server -c demos/bs-config.js",
     "test": "intern-runner config=tests/intern"
   },
+  "keywords": [
+    "dojo",
+    "dcomponent"
+  ],
   "dependencies": {
     "dojo": "^1.10.4",
     "dijit": "^1.10.4",

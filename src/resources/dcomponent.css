@@ -1,14 +1,14 @@
-.dcomponent {
+.dcomponent .scaffold {
   display: flex;
 }
 
-.dcomponent .label {
-  flex: 1 ;
-  margin: 0.75rem 0rem 0.25rem 1rem;
-  max-width: 7rem;
+.dcomponent .scaffold .label,
+.dcomponent .scaffold  .wrapper {
+  flex: 1;
+  margin: 0.5rem 0;
 }
 
-.dcomponent .wrapper {
-  flex: 1;
-  margin: 0.5rem 1rem 0.5rem 0.5rem;
+.dcomponent .scaffold  .label {
+  max-width: 7rem;
+  cursor: pointer;
 }

@@ -25,7 +25,7 @@
         
         var TrackableMemory = declare([Memory, Trackable]);
         var count = 0;
-        var data = StoreData.data.map(function(item) {
+        var data = StoreData.categories[0].elements.map(function(item) {
           item.id = count++;
           item.args.onChange = function(value) {
             console.log(item.label, value);
@@ -44,7 +44,6 @@
         });
 
         var textBoxComponent = new Component({
-          baseClass: 'simpleComponent',
           store: store,
           factory: factory
         }, 'componentNode');

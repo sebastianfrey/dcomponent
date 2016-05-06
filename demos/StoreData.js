@@ -2,13 +2,13 @@ define({
   "data": [
     {
       "type": "textbox",
-      "label": "Textbox1",
+      "label": "Textbox 1",
       "properties": {
         "value": "wert1"
       }
     }, {
       "type": "textbox",
-      "label": "Textbox2",
+      "label": "Textbox 2",
       "properties": {
         "value": "wert2"
       }

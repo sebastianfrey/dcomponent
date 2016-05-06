@@ -9,7 +9,7 @@
     "url": "http://github.com/sebastianfrey/dcomponent"
   },
   "scripts": {
-    "lite": "lite-server",
+    "demos": "lite-server -c demos/bs-config.js",
     "test": "intern-runner config=tests/intern"
   },
   "dependencies": {

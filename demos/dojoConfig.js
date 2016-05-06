@@ -10,7 +10,7 @@ dojoConfig = {
       location: '../dojo-dstore/'
     }, {
       name: 'dcomponent',
-      location: '../../src/'
+      location: '../'
     }
   ]
 };

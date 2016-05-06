@@ -1,0 +1,85 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="dojo/resources/dojo.css" />    
+    <link rel="stylesheet" href="dijit/themes/claro/claro.css" />
+    <link rel="stylesheet" href="resources/dcomponent.css" />
+    <style>
+      .home-link, .componentWrapper {
+        display: block;
+        padding: 1rem;
+      }
+    </style>
+  </head>
+  <body class="claro">
+    <a href="index.html" class="home-link">Back</a>
+    <script src="dojoConfig.js"></script>
+    <script src="dojo/dojo.js"></script>
+    <script>
+      require([
+        'dcomponent/FormComponent',
+        'dcomponent/core/Factory',
+        'dojo/_base/declare',
+        'dojo/dom',
+        'dojo/html',
+        'dstore/Memory',
+        'dstore/Trackable',
+        'dstore/legacy/DstoreAdapter',
+        'dijit/form/FilteringSelect',
+        'dijit/form/Button',
+        './StoreData.js',
+        'dojo/domReady!'
+      ], function(FormComponent, Factory, declare, dom, html, Memory, Trackable, DstoreAdapter, FilteringSelect, Button, StoreData) {
+        
+        var TrackableMemory = declare([Memory, Trackable]);
+        
+        var categoriesStore = new DstoreAdapter(new Memory({data: StoreData.categories}));
+        
+        var formSelect = new FilteringSelect({
+          value: "Custom",
+          store: categoriesStore,
+          searchAttr: "label",
+          onChange: function(itemId) {
+            var count = 0;
+            var item = categoriesStore.get(itemId);
+            var data = item.elements.map(function(element) {
+              element.id = count++;
+              return element;
+            });
+            var store = new TrackableMemory( { data: data } );
+            component.set("store", store);
+          }
+        }, "formSelect");
+        formSelect.startup();
+
+        var factory = new Factory({
+          registry: {
+            textbox: 'dijit/form/TextBox',
+            checkbox: 'dijit/form/CheckBox',
+            numberspinner: 'dijit/form/NumberSpinner',
+            datetextbox: 'dijit/form/DateTextBox'
+          }
+        });
+
+        var component = new FormComponent({
+          store: null,
+          factory: factory
+        }, 'formComponentNode');
+        component.startup();
+        
+        var submitButton = new Button({
+          label: 'Submit',
+          onClick: function() {
+            html.set(dom.byId('resultNode'), JSON.stringify(component.form.get('value'), null, 2));
+          }
+        }, 'formSubmit');
+        submitButton.startup();
+      });
+    </script>
+    <div class="componentWrapper">
+      <div id="formSelect"></div>
+      <div id="formComponentNode"></div>
+      <div id="formSubmit"></div>
+      <p id="resultNode"></p>
+    </div>
+  </body>
+</html>

@@ -1,5 +1,5 @@
 # dcomponent
-> This work in progress!
+> This work in progress! There may be inconsistence states between docs, sources and demos.
 
 ## Important mention
 The idea for `dcomponent` came up while reading [this blog post @SitePen](https://www.sitepen.com/blog/2015/07/28/simple-model-view-synchronization-with-dstore-and-dijit/) and so
@@ -23,6 +23,10 @@ The basic functionality is coverd in the Component section.
 ## Testing dcomponent
 
 dcomponent uses Intern as its test runner. A full description of how to test this module can be found [here](./docs/Testing.md).
+
+## dcomponent demos
+
+dcomponent provides a set of examples. How too run these examples is covered under the [Demos](./docs/Demos.md) section.
 
 [dojo]: <https://github.com/dojo/dojo>
 [dijit]: <https://github.com/dojo/dijit>

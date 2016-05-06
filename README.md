@@ -18,7 +18,7 @@ npm install dcomponent
 
 ## Documentation for dcomponent
 
-The basic functionality is coverd in the Component section.
+The basic functionality is coverd in the [Component](./docs/Component.md) section.
 
 ## Testing dcomponent
 

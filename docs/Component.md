@@ -1,5 +1,7 @@
 # Component
 
+## Overview
+
 The `dcomponent/Component` class is basicly a `dijit/_WidgetBase` implementation extended trough this two mixins: 
 
 - `dcomponent/dijit/_StoreMixin`
@@ -28,5 +30,31 @@ The correspondig HTML node.
 <div id="componentNode"></div>
 ```
 
+## Property Summary
+
+Property | Type | Description
+-------- | ---- | -----------
+`store` | `dijit.Store<ItemModel>` | The components store, which holds all items to render.
+`factory` | `dcomponent.core.Factory` | The components Factory, which is used for the creation of widgets based on a stores item.
+`typeProperty?` | `String` | Defines a store items type property. Default is `type`.
+`labelProperty?` | `String` | Defines a store items label property. Default is `label`.
+`argsProperty?` | `String` | Defines a store items args property. Default is `args`.
+
 [Store]: <https://github.com/SitePen/dstore/blob/master/docs/Store.md>
 [Factory]: <./Factory.md>
+
+## Overridable Methods Summary
+
+You can also overwrite some default methods with your own implementations:
+
+####*_createScaffold(item, widget)* - inherited from `dcomponent/dijit/_FactoryMixin`
+
+Overrideing this method allows you to generate a more advanced scaffold for your items.
+
+##### Method Arguments
+- The store `item`
+- The created `widget`
+
+##### Return Value
+The expected return value is a DOM node. Normally this would be the scaffolds parent node.
+

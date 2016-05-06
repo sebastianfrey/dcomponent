@@ -8,7 +8,7 @@ define([
 ], function(declare, domConstruct, Form, Component) {
   
   function createForm(refNode) {
-    return new Form({}, domConstruct.create('form', null, refNode));
+    return new Form({}, domConstruct.create('div', null, refNode));
   }
   
   return declare('dcomponent.FormComponent', [Component], {

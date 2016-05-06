@@ -27,7 +27,7 @@
         var count = 0;
         var data = StoreData.data.map(function(item) {
           item.id = count++;
-          item.properties.onChange = function(value) {
+          item.args.onChange = function(value) {
             console.log(item.label, value);
           }
           return item;

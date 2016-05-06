@@ -16,7 +16,7 @@ Argument | Type | Description
 
 #### Examples:
 
-Create a new Factory:
+Create a new Factory.
 
 ```javascript
   var factory = new Factory({
@@ -29,35 +29,28 @@ Create a new Factory:
 
 ```
 
-
-## Property Summary
-
-Property | Type | Description
--------- | ---- | -----------
-`loaded` | `dojo/promise/Promise<String[]>` | This property is a `dojo/promise/Promise`, which will be resolved when all `registry` entries will be loaded successfully.
-
-### Examples:
-
-Do something when the factory was loaded succesfully:
-
-```javascript
-  factory.loaded.then((loadedIds) => {
-    // do your amazing stuff.
-  });
-
-```
-
-
 ## Method Summary
 
 Method | Returns | Description
 ------ | ------- | -----------
+`then(callback, errback)` | `dojo/promise/Promise` | The callback will be fired when, the factory is loaded.
 `register(id, module)` | `dojo/promise/Promise<String>` | Registers a new module with the given id in the factories registry. Module can be either a module id or a class reference.
 `deregister(id)` | `dojo/promise/Promise<String>` | Deregisters a module by its id from the factories registry.
 `byId(id)` | `dojo/promise/Promise<ClassConstructor>` | Requests a Module from the registry.
 `create(id, [arguments], [node])` | `dojo/promise/Promise<ClassInstance>` | Creates an class instance related to the given id. Optional parameters are element specific arguments and a node, which will be assigned to the class constructor to be created.
 
 ### Examples:
+
+####*then(callback, errback)*
+
+Do something when the factory was loaded succesfully:
+
+```javascript
+  factory.then((loadedIds) => {
+    // do your amazing stuff.
+  });
+
+```
 
 ####*register(id, moduleId | classReference)*
 

@@ -15,8 +15,6 @@ define([
   return declare('dcomponent.core.Factory', [Stateful, Evented], {
     
     _loadDeferred: null,
-
-    loaded: null,
     
     // Setters and Getters
     
@@ -39,12 +37,11 @@ define([
      * @param loadDeferred
      */
     _setLoaded: function(loadDeferred) {
-      if(!this.isLoaded() && this.loaded) {
+      if(!this.isLoaded() && this._loadDeferred) {
         this._loadDeferred.cancel('reloading');
       }
       
       this._loadDeferred = loadDeferred;
-      this.loaded = this._loadDeferred.promise;
     },
     
     /**
@@ -61,8 +58,12 @@ define([
         
         all(promiseList).then(this._loadDeferred.resolve);
       }
-      return this.loaded;
     },
+    
+    then: function(callback, errback) {
+      return this._loadDeferred.then(callback, errback);
+    },
+    
     
     /**
      * Indicates if the factory is loaded or not.
@@ -70,7 +71,7 @@ define([
      * @returns {Boolean}
      */
     isLoaded: function() {
-      return this.loaded && this.loaded.isResolved();
+      return this._loadDeferred && this._loadDeferred.isResolved();
     },
 
     /**
@@ -141,7 +142,7 @@ define([
     deregister: function(id) {
       var deferred = new Deferred();
       
-      this.loaded.then((function() {
+      this.then((function() {
         if(this.isRegistered(id)) {
           delete this._registry[id];
           deferred.resolve(id);
@@ -165,7 +166,6 @@ define([
      * @param {HTMLElement} node - The node where the widget will be placed.
      * @returns {dijit._WidgetBase}
      */
-
     create: function(id, props, node) {
       var ModuleRef = this.byId(id);
       var args = [ lang.mixin({}, props) ];

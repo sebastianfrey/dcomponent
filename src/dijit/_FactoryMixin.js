@@ -9,56 +9,59 @@ define([
     
     typeProperty: 'type',
     
-    propsProperty: 'properties',
+    labelProperty: 'label',
     
+    argsProperty: 'args',
+        
     factory: null,
     
     _renderItem: function(item) {
-      if(!item[this.propsProperty]) {
-        item[this.propsProperty] = {};
+      if(!item[this.argsProperty]) {
+        item[this.argsProperty] = {};
       }
 
       item = this._mountOnChangeEvent(item);
-      var element = this._createElement(item);
+      var widget = this._createWidget(item);
 
-      return this._createScaffold(item, element);
+      return this._createScaffold(item, widget);
     },
     
-    _createElement: function(item) {
+    _createWidget: function(item) {
       var node = domConstruct.create('span', null, this.containerNode);
-      return this.factory.create(item[this.typeProperty], item[this.propsProperty], node);
+      return this.factory.create(item[this.typeProperty], item[this.argsProperty], node);
     },
     
     /**
      * Overrideable
      */
-    _createScaffold: function(item, element) {
+    _createScaffold: function(item, widget) {
       var scaffoldNode = domConstruct.create('span', {
         'class': this.scaffoldClass
       });
       
       domConstruct.create('span', {
-        innerHTML: item.label,
+        innerHTML: item[this.labelProperty],
         'class': 'label'
       }, scaffoldNode);
       
-      var elementNode = domConstruct.create('span', {
-        'class': 'element'
+      var wrapperNode = domConstruct.create('span', {
+        'class': 'wrapper'
       }, scaffoldNode);
       
-      domConstruct.place(element.domNode || element, elementNode, 'only');
+      domConstruct.place(widget.domNode || widget, wrapperNode, 'only');
       
       return scaffoldNode;
     },
     
     _mountOnChangeEvent: function(item) {
-      var onChange = item[this.propsProperty].onChange;
-      item[this.propsProperty].onChange = this._onChange.bind(this, item, onChange);
+      console.log(item);
+      var onChange = item[this.argsProperty].onChange;
+      item[this.argsProperty].onChange = this._onChange.bind(this, item, onChange);
       return item;
     },
     
     _onChange: function(item, callback, value) {
-       var props = item[this.propsProperty];
+       var props = item[this.argsProperty];
 
        if(props.hasOwnProperty('checked')) {
          props.checked = value;
@@ -84,7 +87,7 @@ define([
     
     _setFactoryAttr: function(factory) {
       this._set('factory', factory);
-      this.factory.loaded.then(this._render.bind(this));
+      this.factory.then(this._render.bind(this));
     }
   });
   

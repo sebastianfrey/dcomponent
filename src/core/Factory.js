@@ -55,11 +55,14 @@ define([
         for (var id in registry) {
           promiseList.push(this.register(id, registry[id]));
         }
-        
-        all(promiseList).then(this._loadDeferred.resolve);
+        all(promiseList).then(this._loadDeferred.resolve);            
       }
     },
     
+    /**
+     * Will pipes the callback and the errback to the _loadDeferred.
+     * @returns {dojo.promise.Promise};
+     */
     then: function(callback, errback) {
       return this._loadDeferred.then(callback, errback);
     },
